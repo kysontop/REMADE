@@ -11,6 +11,7 @@
       color: white;
       font-family: 'Arial Black', sans-serif;
       font-size: 16px;
+      white-space: pre-wrap;
       overflow: hidden;
       text-align: center;
     }
@@ -35,34 +36,19 @@
       50.01%, 100% { opacity: 0; }
     }
 
-    #terminal {
-      position: absolute;
-      top: 45%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      text-align: left;
-      font-family: 'Courier New', monospace;
-      white-space: pre-wrap;
-      color: white;
-      background-color: black;
-      padding: 30px;
-      border: 1px solid white;
-      width: 500px;
-      display: none;
-    }
-
+    /* Profile Styles */
     .profile-container {
-      position: absolute;
-      top: 45%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      display: none;
-      text-align: center;
+      padding: 40px;
       color: white;
-      animation: glow 1.5s infinite alternate;
+      font-family: 'Arial Black', sans-serif;
+      display: none;
+      animation: shine 2s infinite alternate; /* Shine animation */
+      text-align: center;
+      position: relative;
+      margin-top: 50px;
     }
 
-    @keyframes glow {
+    @keyframes shine {
       0% {
         text-shadow: 0 0 10px white, 0 0 20px white, 0 0 30px white;
       }
@@ -88,22 +74,34 @@
     }
 
     h1 {
-      font-size: 28px;
+      color: white;
       margin: 10px 0;
-      text-shadow: 0 0 15px white, 0 0 25px white;
+      font-size: 28px;
+      text-shadow: 0 0 15px white, 0 0 25px white; /* Glowing text effect */
+      animation: glowingText 1.5s infinite alternate; /* White glowing text animation */
+    }
+
+    @keyframes glowingText {
+      0% {
+        text-shadow: 0 0 10px white, 0 0 20px white, 0 0 30px white, 0 0 40px white;
+      }
+      100% {
+        text-shadow: 0 0 20px white, 0 0 30px white, 0 0 40px white, 0 0 50px white;
+      }
     }
 
     hr {
       border: 0;
       border-top: 1px solid #888;
-      margin: 20px auto;
+      margin: 30px auto;
       width: 60%;
     }
 
     .socials {
-      font-size: 18px;
-      margin-top: 10px;
       text-align: left;
+      display: inline-block;
+      margin-top: 20px;
+      font-size: 18px;
     }
 
     .socials a {
@@ -112,36 +110,55 @@
     }
 
     .socials a:hover {
+      color: #fff;
+    }
+
+    .label {
       color: white;
+      text-shadow: 0 0 10px white, 0 0 15px white; /* Glowing effect */
+      animation: glowingText 1.5s infinite alternate; /* White glowing text animation */
+    }
+
+    #terminal {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: left;
+      font-family: 'Courier New', monospace;
+      white-space: pre-wrap;
+      color: white;
+      background-color: black;
+      padding: 30px;
+      border: 1px solid white;
+      width: 500px;
+      z-index: 10;
     }
   </style>
 </head>
 <body>
 
   <div id="intro">
-    Welcome To Sec's Domain. Press Any Key To Continue<span class="cursor">█</span>
-  </div>
-
-  <div id="terminal"></div>
-
-  <div class="profile-container" id="profile">
-    <div class="profile-grid">
-      <img class="pfp" src="https://files.catbox.moe/xge2b7.jpg" alt="pfp" />
-      <h1>sec</h1>
-      <p>Yungest To Do It</p>
-      <hr />
-      <div class="socials">
-        <div><strong>📡 Telegram</strong> – <a href="https://t.me/prettyboy58" target="_blank">prettyboy58</a></div>
-        <div><strong>📄 Doxbin</strong> – <a href="https://doxbin.net/user/wpa" target="_blank">wpa</a></div>
-        <div><strong>📧 Email</strong> – sec@govshield.cc</div>
-      </div>
-    </div>
-    <audio autoplay loop>
-      <source src="https://files.catbox.moe/jq8p59.mp3" type="audio/mpeg">
-    </audio>
+    Welcome To Sec's Domain. Press Any Key Or Click Anywhere To Continue<span class="cursor">█</span>
   </div>
 
   <script>
+    function startOnInput() {
+      const intro = document.getElementById("intro");
+      if (intro) intro.remove();
+      startFakeTerminal();
+      document.removeEventListener("keydown", startOnInput);
+      document.removeEventListener("click", startOnInput);
+    }
+
+    // Listen for both keyboard and mouse click events
+    function setupEventListeners() {
+      document.addEventListener("keydown", startOnInput);
+      document.addEventListener("click", startOnInput);
+    }
+
+    setupEventListeners();  // Setting up both listeners when the page loads
+
     const lines = [
       "root@adduser.sh",
       "Please state the user you would like to add > sec",
@@ -154,21 +171,17 @@
       "Login successful.",
     ];
 
-    let i = 0, j = 0;
+    let i = 0;
+    let j = 0;
     const speed = 25;
-    const terminal = document.getElementById("terminal");
-    const profile = document.getElementById("profile");
+    let terminal;
 
-    function startOnInput() {
-      document.getElementById("intro").remove();
-      terminal.style.display = "block";
+    function startFakeTerminal() {
+      terminal = document.createElement("div");
+      terminal.id = "terminal";
+      document.body.appendChild(terminal);
       typeLine();
-      document.removeEventListener("keydown", startOnInput);
-      document.removeEventListener("click", startOnInput);
     }
-
-    document.addEventListener("keydown", startOnInput);
-    document.addEventListener("click", startOnInput);
 
     function typeLine() {
       if (i < lines.length) {
@@ -183,11 +196,31 @@
           setTimeout(typeLine, 250);
         }
       } else {
-        setTimeout(() => {
-          terminal.style.display = "none";
-          profile.style.display = "flex";
-        }, 1000);
+        setTimeout(showProfile, 1000);
       }
+    }
+
+    function showProfile() {
+      const profileHTML = `
+        <div class="profile-container" style="display:block;">
+          <div class="profile-grid">
+            <img class="pfp" src="https://files.catbox.moe/xge2b7.jpg" alt="pfp" />
+            <h1>sec</h1>
+            <p>Yungest To Do It</p>
+            <hr />
+            <div class="socials">
+              <div><span class="label">📡 Telegram</span> – <a href="https://t.me/prettyboy58" target="_blank">prettyboy58</a></div>
+              <div><span class="label">📄 Doxbin</span> – <a href="https://doxbin.net/user/wpa" target="_blank">wpa</a></div>
+              <div><span class="label">📧 Email</span> – <span>sec@govshield.cc</span></div>
+            </div>
+          </div>
+          <!-- Update the music source here -->
+          <audio autoplay loop>
+            <source src="https://files.catbox.moe/xaxmfx.mp3" type="audio/mpeg">
+          </audio>
+        </div>
+      `;
+      document.body.insertAdjacentHTML('beforeend', profileHTML);
     }
   </script>
 
