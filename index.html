@@ -42,9 +42,19 @@
       color: white;
       font-family: 'Arial Black', sans-serif;
       display: none;
+      animation: shine 2s infinite alternate; /* Shine animation */
       text-align: center;
       position: relative;
       margin-top: 50px;
+    }
+
+    @keyframes shine {
+      0% {
+        text-shadow: 0 0 10px white, 0 0 20px white, 0 0 30px white;
+      }
+      100% {
+        text-shadow: 0 0 20px white, 0 0 30px white, 0 0 40px white;
+      }
     }
 
     .profile-grid {
@@ -58,6 +68,7 @@
       width: 180px;
       height: 180px;
       border-radius: 50%;
+      border: 3px solid white;
       object-fit: cover;
       margin-bottom: 20px;
     }
@@ -66,16 +77,16 @@
       color: white;
       margin: 10px 0;
       font-size: 28px;
-      text-shadow: 0 0 15px white, 0 0 25px white;
-      animation: glowingText 1.5s infinite alternate;
+      text-shadow: 0 0 15px white, 0 0 25px white; /* Glowing text effect */
+      animation: glowingText 1.5s infinite alternate; /* White glowing text animation */
     }
 
     @keyframes glowingText {
       0% {
-        text-shadow: 0 0 10px white, 0 0 20px white, 0 0 30px white;
+        text-shadow: 0 0 10px white, 0 0 20px white, 0 0 30px white, 0 0 40px white;
       }
       100% {
-        text-shadow: 0 0 20px white, 0 0 30px white, 0 0 40px white;
+        text-shadow: 0 0 20px white, 0 0 30px white, 0 0 40px white, 0 0 50px white;
       }
     }
 
@@ -104,11 +115,15 @@
 
     .label {
       color: white;
-      text-shadow: 0 0 10px white, 0 0 15px white;
-      animation: glowingText 1.5s infinite alternate;
+      text-shadow: 0 0 10px white, 0 0 15px white; /* Glowing effect */
+      animation: glowingText 1.5s infinite alternate; /* White glowing text animation */
     }
 
     #terminal {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
       text-align: left;
       font-family: 'Courier New', monospace;
       white-space: pre-wrap;
@@ -117,7 +132,7 @@
       padding: 30px;
       border: 1px solid white;
       width: 500px;
-      margin: 50px auto 20px auto;
+      z-index: 10;
     }
   </style>
 </head>
@@ -136,12 +151,13 @@
       document.removeEventListener("click", startOnInput);
     }
 
+    // Listen for both keyboard and mouse click events
     function setupEventListeners() {
       document.addEventListener("keydown", startOnInput);
       document.addEventListener("click", startOnInput);
     }
 
-    setupEventListeners();
+    setupEventListeners();  // Setting up both listeners when the page loads
 
     const lines = [
       "root@adduser.sh",
@@ -180,7 +196,7 @@
           setTimeout(typeLine, 250);
         }
       } else {
-        setTimeout(showProfile, 1000);
+        setTimeout(showProfile, 1000);  // Show profile after terminal finishes
       }
     }
 
