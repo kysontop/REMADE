@@ -4,6 +4,17 @@
   <meta charset="UTF-8" />
   <title>Sec's Domain</title>
   <style>
+    /* Video background */
+    #bg-video {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      object-fit: cover;
+      z-index: -1;
+    }
+
     body {
       margin: 0;
       padding: 0;
@@ -44,7 +55,7 @@
       font-family: 'Courier New', monospace;
       white-space: pre-wrap;
       color: white;
-      background-color: black;
+      background-color: rgba(0, 0, 0, 0.7);
       padding: 30px;
       border: 1px solid white;
       width: 500px;
@@ -117,6 +128,12 @@
   </style>
 </head>
 <body>
+
+  <!-- 🔥 Background Video -->
+  <video id="bg-video" autoplay muted loop>
+    <source src="https://files.catbox.moe/5ept4y.mp4" type="video/mp4" />
+    Your browser does not support the video tag.
+  </video>
 
   <!-- Initial "Welcome" Screen -->
   <div id="intro">
