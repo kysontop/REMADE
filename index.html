@@ -4,18 +4,6 @@
   <meta charset="UTF-8" />
   <title>Sec's Domain</title>
   <style>
-    /* Hide video until needed */
-    #bg-video {
-      display: none;
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      object-fit: cover;
-      z-index: -1;
-    }
-
     body {
       margin: 0;
       padding: 0;
@@ -56,38 +44,47 @@
       font-family: 'Courier New', monospace;
       white-space: pre-wrap;
       color: white;
-      background-color: rgba(0, 0, 0, 0.7);
+      background-color: black;
       padding: 30px;
       border: 1px solid white;
       width: 500px;
       display: none;
     }
 
-    .profile-container {
+    #profile {
       position: absolute;
-      top: 45%;
-      left: 50%;
-      transform: translate(-50%, -50%);
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100vh;
       display: none;
-      text-align: center;
-      color: white;
-      animation: glow 1.5s infinite alternate;
-    }
-
-    @keyframes glow {
-      0% {
-        text-shadow: 0 0 10px white, 0 0 20px white, 0 0 30px white;
-      }
-      100% {
-        text-shadow: 0 0 20px white, 0 0 30px white, 0 0 40px white;
-      }
-    }
-
-    .profile-grid {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
       justify-content: center;
+      align-items: center;
+      color: white;
+      z-index: 2;
+    }
+
+    #profile-video {
+      position: absolute;
+      top: 0;
+      left: 0;
+      min-width: 100%;
+      min-height: 100%;
+      object-fit: cover;
+      z-index: 0;
+      display: none;
+    }
+
+    .profile-box {
+      background: rgba(0, 0, 0, 0.5);
+      border: 1px solid #aaa;
+      box-shadow: 0 0 20px #ffffff44, 0 0 10px #ffffff22;
+      border-radius: 15px;
+      padding: 30px;
+      backdrop-filter: blur(10px);
+      max-width: 400px;
+      margin: 0 auto;
+      z-index: 3;
     }
 
     img.pfp {
@@ -130,21 +127,22 @@
 </head>
 <body>
 
-  <!-- 🔥 Background Video (Hidden initially) -->
-  <video id="bg-video" autoplay muted loop>
-    <source src="https://files.catbox.moe/5ept4y.mp4" type="video/mp4" />
-  </video>
-
-  <!-- Initial "Welcome" Screen -->
+  <!-- Intro screen -->
   <div id="intro">
     Welcome To Sec's Domain. Press Any Key To Continue<span class="cursor">█</span>
   </div>
 
+  <!-- Terminal simulation -->
   <div id="terminal"></div>
 
-  <!-- Profile section -->
+  <!-- Background video (hidden initially) -->
+  <video id="profile-video" autoplay muted loop>
+    <source src="https://files.catbox.moe/5ept4y.mp4" type="video/mp4">
+  </video>
+
+  <!-- Profile Section -->
   <div class="profile-container" id="profile">
-    <div class="profile-grid">
+    <div class="profile-box">
       <img class="pfp" src="https://files.catbox.moe/xge2b7.jpg" alt="pfp" />
       <h1>sec</h1>
       <p>Yungest To Do It</p>
@@ -155,7 +153,6 @@
         <div><strong>📧 Email</strong> – sec@govshield.cc</div>
       </div>
     </div>
-    <!-- Audio that plays when the profile shows -->
     <audio id="profile-audio" autoplay loop>
       <source src="https://files.catbox.moe/xaxmfx.mp3" type="audio/mpeg">
     </audio>
@@ -179,7 +176,7 @@
     const terminal = document.getElementById("terminal");
     const profile = document.getElementById("profile");
     const profileAudio = document.getElementById("profile-audio");
-    const bgVideo = document.getElementById("bg-video");
+    const video = document.getElementById("profile-video");
 
     function startOnInput() {
       document.getElementById("intro").remove();
@@ -207,13 +204,13 @@
       } else {
         setTimeout(() => {
           terminal.style.display = "none";
-          bgVideo.style.display = "block"; // Show video
           profile.style.display = "flex";
+          video.style.display = "block";
           profileAudio.play();
         }, 1000);
       }
     }
   </script>
-
 </body>
 </html>
+
