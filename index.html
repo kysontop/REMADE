@@ -12,8 +12,7 @@
       font-family: 'Arial Black', sans-serif;
       font-size: 18px;
       white-space: pre-wrap;
-      overflow-x: hidden;
-      overflow-y: auto;
+      overflow: hidden;
       text-align: center;
     }
 
@@ -37,17 +36,25 @@
     }
 
     #terminal {
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .terminal-box {
       text-align: left;
       padding: 40px;
       font-family: 'Courier New', monospace;
-      color: white;
       max-width: 600px;
-      margin: 100px auto 0 auto;
     }
 
     .profile-container {
-      margin: 60px auto;
-      text-align: center;
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
     }
 
     img.pfp {
@@ -82,13 +89,30 @@
     .socials a:hover {
       color: white;
     }
-
   </style>
 </head>
 <body>
 
   <div id="intro">
-    Welcome To Sec's Domain Press Any Key  To Continue<span class="cursor">█</span>
+    Welcome To Sec's Domain. Press Any Key To Continue<span class="cursor">█</span>
+  </div>
+
+  <div id="terminal" style="display: none;">
+    <div class="terminal-box" id="terminal-box"></div>
+  </div>
+
+  <div class="profile-container" id="profile">
+    <img class="pfp" src="https://files.catbox.moe/xge2b7.jpg" alt="pfp" />
+    <h1>sec</h1>
+    <p>Yungest To Do It</p>
+    <div class="socials">
+      <div><span class="label">📡 Telegram</span> – <a href="https://t.me/prettyboy58" target="_blank">prettyboy58</a></div>
+      <div><span class="label">📄 Doxbin</span> – <a href="https://doxbin.net/user/wpa" target="_blank">wpa</a></div>
+      <div><span class="label">📧 Email</span> – <span>sec@govshield.cc</span></div>
+    </div>
+    <audio autoplay loop>
+      <source src="https://files.catbox.moe/jq8p59.mp3" type="audio/mpeg">
+    </audio>
   </div>
 
   <script>
@@ -105,54 +129,40 @@
     let i = 0;
     let j = 0;
     const speed = 25;
-    let terminal;
 
-    function startTerminal() {
+    function startTerminalScene() {
       document.getElementById("intro").remove();
-      terminal = document.createElement("div");
-      terminal.id = "terminal";
-      document.body.appendChild(terminal);
+      document.getElementById("terminal").style.display = "flex";
       typeLine();
     }
 
     function typeLine() {
+      const terminalBox = document.getElementById("terminal-box");
+
       if (i < lines.length) {
         if (j < lines[i].length) {
-          terminal.innerHTML += lines[i].charAt(j);
+          terminalBox.innerHTML += lines[i].charAt(j);
           j++;
           setTimeout(typeLine, speed);
         } else {
-          terminal.innerHTML += '\n';
+          terminalBox.innerHTML += '\n';
           i++;
           j = 0;
           setTimeout(typeLine, 250);
         }
       } else {
-        setTimeout(showProfile, 1000);
+        setTimeout(showProfileScene, 1000);
       }
     }
 
-    function showProfile() {
-      const profileHTML = `
-        <div class="profile-container">
-          <img class="pfp" src="https://files.catbox.moe/xge2b7.jpg" alt="pfp" />
-          <h1>sec</h1>
-          <p>Yungest To Do It</p>
-          <div class="socials">
-            <div><span class="label">📡 Telegram</span> – <a href="https://t.me/prettyboy58" target="_blank">prettyboy58</a></div>
-            <div><span class="label">📄 Doxbin</span> – <a href="https://doxbin.net/user/wpa" target="_blank">wpa</a></div>
-            <div><span class="label">📧 Email</span> – <span>sec@govshield.cc</span></div>
-          </div>
-          <audio autoplay loop>
-            <source src="https://files.catbox.moe/jq8p59.mp3" type="audio/mpeg">
-          </audio>
-        </div>
-      `;
-      document.body.insertAdjacentHTML('beforeend', profileHTML);
+    function showProfileScene() {
+      document.getElementById("terminal").remove();
+      const profile = document.getElementById("profile");
+      profile.style.display = "flex";
     }
 
-    document.addEventListener("keydown", startTerminal);
-    document.addEventListener("click", startTerminal);
+    document.addEventListener("keydown", startTerminalScene);
+    document.addEventListener("click", startTerminalScene);
   </script>
 
 </body>
