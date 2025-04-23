@@ -4,8 +4,9 @@
   <meta charset="UTF-8" />
   <title>Sec's Domain</title>
   <style>
-    /* Video background */
+    /* Hide video until needed */
     #bg-video {
+      display: none;
       position: fixed;
       top: 0;
       left: 0;
@@ -129,10 +130,9 @@
 </head>
 <body>
 
-  <!-- 🔥 Background Video -->
+  <!-- 🔥 Background Video (Hidden initially) -->
   <video id="bg-video" autoplay muted loop>
     <source src="https://files.catbox.moe/5ept4y.mp4" type="video/mp4" />
-    Your browser does not support the video tag.
   </video>
 
   <!-- Initial "Welcome" Screen -->
@@ -179,6 +179,7 @@
     const terminal = document.getElementById("terminal");
     const profile = document.getElementById("profile");
     const profileAudio = document.getElementById("profile-audio");
+    const bgVideo = document.getElementById("bg-video");
 
     function startOnInput() {
       document.getElementById("intro").remove();
@@ -206,8 +207,9 @@
       } else {
         setTimeout(() => {
           terminal.style.display = "none";
+          bgVideo.style.display = "block"; // Show video
           profile.style.display = "flex";
-          profileAudio.play(); // Play music when profile appears
+          profileAudio.play();
         }, 1000);
       }
     }
