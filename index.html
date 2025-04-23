@@ -60,7 +60,6 @@
       display: none;
       justify-content: center;
       align-items: center;
-      color: white;
       z-index: 2;
     }
 
@@ -76,52 +75,50 @@
     }
 
     .profile-box {
-      background: rgba(0, 0, 0, 0.5);
-      border: 1px solid #aaa;
-      box-shadow: 0 0 20px #ffffff44, 0 0 10px #ffffff22;
-      border-radius: 15px;
+      background: rgba(0, 0, 0, 0.4);
+      border-radius: 20px;
       padding: 30px;
-      backdrop-filter: blur(10px);
-      max-width: 400px;
-      margin: 0 auto;
+      width: 380px;
+      box-shadow: 0 0 20px #00ffff88, 0 0 40px #00ffff44;
+      backdrop-filter: blur(12px);
+      border: 1px solid #00ffff88;
       z-index: 3;
     }
 
-    img.pfp {
-      width: 180px;
-      height: 180px;
+    .pfp {
+      width: 140px;
+      height: 140px;
       border-radius: 50%;
-      border: 3px solid white;
-      object-fit: cover;
-      margin-bottom: 20px;
+      border: 2px solid white;
+      margin-bottom: 15px;
     }
 
     h1 {
-      font-size: 28px;
+      font-size: 26px;
       margin: 10px 0;
-      text-shadow: 0 0 15px white, 0 0 25px white;
-    }
-
-    hr {
-      border: 0;
-      border-top: 1px solid #888;
-      margin: 20px auto;
-      width: 60%;
+      text-shadow: 0 0 10px white;
     }
 
     .socials {
-      font-size: 18px;
-      margin-top: 10px;
-      text-align: left;
+      font-size: 16px;
+      margin-top: 15px;
+      text-align: center;
     }
 
     .socials a {
-      color: #7d7dff;
+      color: #00ffff;
       text-decoration: none;
     }
 
     .socials a:hover {
       color: white;
+    }
+
+    hr {
+      border: 0;
+      border-top: 1px solid #00ffff44;
+      margin: 20px auto;
+      width: 70%;
     }
   </style>
 </head>
@@ -132,15 +129,15 @@
     Welcome To Sec's Domain. Press Any Key To Continue<span class="cursor">█</span>
   </div>
 
-  <!-- Terminal simulation -->
+  <!-- Terminal screen -->
   <div id="terminal"></div>
 
-  <!-- Background video (hidden initially) -->
+  <!-- Background video -->
   <video id="profile-video" autoplay muted loop>
     <source src="https://files.catbox.moe/5ept4y.mp4" type="video/mp4">
   </video>
 
-  <!-- Profile Section -->
+  <!-- Profile with glowing box -->
   <div class="profile-container" id="profile">
     <div class="profile-box">
       <img class="pfp" src="https://files.catbox.moe/xge2b7.jpg" alt="pfp" />
@@ -152,10 +149,10 @@
         <div><strong>📄 Doxbin</strong> – <a href="https://doxbin.net/user/wpa" target="_blank">wpa</a></div>
         <div><strong>📧 Email</strong> – sec@govshield.cc</div>
       </div>
+      <audio id="profile-audio" autoplay loop>
+        <source src="https://files.catbox.moe/xaxmfx.mp3" type="audio/mpeg">
+      </audio>
     </div>
-    <audio id="profile-audio" autoplay loop>
-      <source src="https://files.catbox.moe/xaxmfx.mp3" type="audio/mpeg">
-    </audio>
   </div>
 
   <script>
@@ -213,4 +210,3 @@
   </script>
 </body>
 </html>
-
