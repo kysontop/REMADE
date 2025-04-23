@@ -1,4 +1,4 @@
-v<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -118,12 +118,14 @@ v<!DOCTYPE html>
 </head>
 <body>
 
+  <!-- Initial "Welcome" Screen -->
   <div id="intro">
     Welcome To Sec's Domain. Press Any Key To Continue<span class="cursor">█</span>
   </div>
 
   <div id="terminal"></div>
 
+  <!-- Profile section -->
   <div class="profile-container" id="profile">
     <div class="profile-grid">
       <img class="pfp" src="https://files.catbox.moe/xge2b7.jpg" alt="pfp" />
@@ -136,7 +138,8 @@ v<!DOCTYPE html>
         <div><strong>📧 Email</strong> – sec@govshield.cc</div>
       </div>
     </div>
-    <audio autoplay loop>
+    <!-- Audio that plays when the profile shows -->
+    <audio id="profile-audio" autoplay loop>
       <source src="https://files.catbox.moe/jq8p59.mp3" type="audio/mpeg">
     </audio>
   </div>
@@ -158,6 +161,7 @@ v<!DOCTYPE html>
     const speed = 25;
     const terminal = document.getElementById("terminal");
     const profile = document.getElementById("profile");
+    const profileAudio = document.getElementById("profile-audio");
 
     function startOnInput() {
       document.getElementById("intro").remove();
@@ -186,6 +190,7 @@ v<!DOCTYPE html>
         setTimeout(() => {
           terminal.style.display = "none";
           profile.style.display = "flex";
+          profileAudio.play(); // Play music when profile appears
         }, 1000);
       }
     }
