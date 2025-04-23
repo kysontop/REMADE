@@ -10,7 +10,7 @@
       background: black;
       color: white;
       font-family: 'Arial Black', sans-serif;
-      font-size: 16px;
+      font-size: 18px;
       white-space: pre-wrap;
       overflow: hidden;
       text-align: center;
@@ -22,13 +22,12 @@
       justify-content: center;
       align-items: center;
       font-size: 22px;
-      color: white;
     }
 
     .cursor {
       display: inline-block;
       width: 10px;
-      animation: blink 0.8s infinite;
+      animation: blink 1s infinite;
     }
 
     @keyframes blink {
@@ -36,191 +35,134 @@
       50.01%, 100% { opacity: 0; }
     }
 
-    /* Profile Styles */
-    .profile-container {
-      padding: 40px;
-      color: white;
-      font-family: 'Arial Black', sans-serif;
-      display: none;
-      animation: shine 2s infinite alternate; /* Shine animation */
-      text-align: center;
-      position: relative;
-      margin-top: 50px;
-    }
-
-    @keyframes shine {
-      0% {
-        text-shadow: 0 0 10px white, 0 0 20px white, 0 0 30px white;
-      }
-      100% {
-        text-shadow: 0 0 20px white, 0 0 30px white, 0 0 40px white;
-      }
-    }
-
-    .profile-grid {
+    #terminal {
+      height: 100vh;
       display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .terminal-box {
+      text-align: left;
+      padding: 40px;
+      font-family: 'Courier New', monospace;
+      max-width: 600px;
+    }
+
+    .profile-container {
+      display: none;
       flex-direction: column;
       align-items: center;
       justify-content: center;
+      height: 100vh;
     }
 
     img.pfp {
-      width: 180px;
-      height: 180px;
+      width: 150px;
+      height: 150px;
       border-radius: 50%;
+      border: 3px solid white;
       object-fit: cover;
       margin-bottom: 20px;
     }
 
-    h1, p {
-      color: white;
+    h1 {
       margin: 10px 0;
       font-size: 28px;
-      text-shadow: 0 0 15px white, 0 0 25px white; /* Glowing text effect */
-      animation: glowingText 1.5s infinite alternate; /* White glowing text animation */
+      color: white;
     }
 
-    @keyframes glowingText {
-      0% {
-        text-shadow: 0 0 10px white, 0 0 20px white, 0 0 30px white, 0 0 40px white;
-      }
-      100% {
-        text-shadow: 0 0 20px white, 0 0 30px white, 0 0 40px white, 0 0 50px white;
-      }
-    }
-
-    hr {
-      border: 0;
-      border-top: 1px solid #888;
-      margin: 30px auto;
-      width: 60%;
+    .label {
+      color: white;
     }
 
     .socials {
-      text-align: left;
-      display: inline-block;
-      margin-top: 20px;
       font-size: 18px;
+      margin-top: 20px;
     }
 
     .socials a {
       color: #7d7dff;
       text-decoration: none;
-      text-shadow: 0 0 15px white, 0 0 25px white; /* Glowing effect */
     }
 
     .socials a:hover {
-      color: #fff;
-    }
-
-    .label {
       color: white;
-      text-shadow: 0 0 10px white, 0 0 15px white; /* Glowing effect */
-      animation: glowingText 1.5s infinite alternate; /* White glowing text animation */
-    }
-
-    #terminal {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      text-align: left;
-      font-family: 'Courier New', monospace;
-      white-space: pre-wrap;
-      color: white;
-      background-color: black;
-      padding: 30px;
-      border: 1px solid white;
-      width: 500px;
-      z-index: 10;
     }
   </style>
 </head>
 <body>
 
   <div id="intro">
-    Welcome To Sec's Domain. Press Any Key Or Click Anywhere To Continue<span class="cursor">█</span>
+    Welcome To Sec's Domain. Press Any Key To Continue<span class="cursor">█</span>
+  </div>
+
+  <div id="terminal" style="display: none;">
+    <div class="terminal-box" id="terminal-box"></div>
+  </div>
+
+  <div class="profile-container" id="profile">
+    <img class="pfp" src="https://files.catbox.moe/xge2b7.jpg" alt="pfp" />
+    <h1>sec</h1>
+    <p>Yungest To Do It</p>
+    <div class="socials">
+      <div><span class="label">📡 Telegram</span> – <a href="https://t.me/prettyboy58" target="_blank">prettyboy58</a></div>
+      <div><span class="label">📄 Doxbin</span> – <a href="https://doxbin.net/user/wpa" target="_blank">wpa</a></div>
+      <div><span class="label">📧 Email</span> – <span>sec@govshield.cc</span></div>
+    </div>
+    <audio autoplay loop>
+      <source src="https://files.catbox.moe/jq8p59.mp3" type="audio/mpeg">
+    </audio>
   </div>
 
   <script>
-    function startOnInput() {
-      const intro = document.getElementById("intro");
-      if (intro) intro.remove();
-      startFakeTerminal();
-      document.removeEventListener("keydown", startOnInput);
-      document.removeEventListener("click", startOnInput);
-    }
-
-    // Listen for both keyboard and mouse click events
-    function setupEventListeners() {
-      document.addEventListener("keydown", startOnInput);
-      document.addEventListener("click", startOnInput);
-    }
-
-    setupEventListeners();  // Setting up both listeners when the page loads
-
     const lines = [
       "root@adduser.sh",
       "Please state the user you would like to add > sec",
       "Please set the password for 'sec' > ********",
       "Shall we create a home directory for 'sec'? > Yes",
       "",
-      "Directory Created, time for your socials!",
-      "",
-      "Logging in...",
+      "Directory Created...",
       "Login successful.",
     ];
 
     let i = 0;
     let j = 0;
     const speed = 25;
-    let terminal;
 
-    function startFakeTerminal() {
-      terminal = document.createElement("div");
-      terminal.id = "terminal";
-      document.body.appendChild(terminal);
+    function startTerminalScene() {
+      document.getElementById("intro").remove();
+      document.getElementById("terminal").style.display = "flex";
       typeLine();
     }
 
     function typeLine() {
+      const terminalBox = document.getElementById("terminal-box");
+
       if (i < lines.length) {
         if (j < lines[i].length) {
-          terminal.innerHTML += lines[i].charAt(j);
+          terminalBox.innerHTML += lines[i].charAt(j);
           j++;
           setTimeout(typeLine, speed);
         } else {
-          terminal.innerHTML += '\n';
+          terminalBox.innerHTML += '\n';
           i++;
           j = 0;
           setTimeout(typeLine, 250);
         }
       } else {
-        setTimeout(showProfile, 1000);
+        setTimeout(showProfileScene, 1000);
       }
     }
 
-    function showProfile() {
-      const profileHTML = `
-        <div class="profile-container" style="display:block;">
-          <div class="profile-grid">
-            <img class="pfp" src="https://files.catbox.moe/xge2b7.jpg" alt="pfp" />
-            <h1>sec</h1>
-            <p>Yungest To Do It</p>
-            <hr />
-            <div class="socials">
-              <div><span class="label">📡 Telegram</span> – <a href="https://t.me/prettyboy58" target="_blank">prettyboy58</a></div>
-              <div><span class="label">📄 Doxbin</span> – <a href="https://doxbin.net/user/wpa" target="_blank">wpa</a></div>
-              <div><span class="label">📧 Email</span> – <span>sec@govshield.cc</span></div>
-            </div>
-          </div>
-          <audio autoplay loop>
-            <source src="https://files.catbox.moe/jq8p59.mp3" type="audio/mpeg">
-          </audio>
-        </div>
-      `;
-      document.body.insertAdjacentHTML('beforeend', profileHTML);
+    function showProfileScene() {
+      document.getElementById("terminal").remove();
+      const profile = document.getElementById("profile");
+      profile.style.display = "flex";
     }
+
+    document.addEventListener("keydown", startTerminalScene);
+    document.addEventListener("click", startTerminalScene);
   </script>
 
 </body>
