@@ -10,8 +10,7 @@
       background: black;
       color: white;
       font-family: 'Arial Black', sans-serif;
-      font-size: 18px;
-      white-space: pre-wrap;
+      font-size: 16px;
       overflow: hidden;
       text-align: center;
     }
@@ -22,12 +21,13 @@
       justify-content: center;
       align-items: center;
       font-size: 22px;
+      color: white;
     }
 
     .cursor {
       display: inline-block;
       width: 10px;
-      animation: blink 1s infinite;
+      animation: blink 0.8s infinite;
     }
 
     @keyframes blink {
@@ -36,30 +36,41 @@
     }
 
     #terminal {
-      height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-
-    .terminal-box {
+      position: absolute;
+      top: 45%;
+      left: 50%;
+      transform: translate(-50%, -50%);
       text-align: left;
-      padding: 40px;
       font-family: 'Courier New', monospace;
-      max-width: 600px;
+      white-space: pre-wrap;
+      color: white;
+      background-color: black;
+      padding: 30px;
+      border: 1px solid white;
+      width: 500px;
+      display: none;
     }
 
     .profile-container {
+      position: absolute;
+      top: 45%;
+      left: 50%;
+      transform: translate(-50%, -50%);
       display: none;
+      text-align: center;
+      color: white;
+    }
+
+    .profile-grid {
+      display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      height: 100vh;
     }
 
     img.pfp {
-      width: 150px;
-      height: 150px;
+      width: 180px;
+      height: 180px;
       border-radius: 50%;
       border: 3px solid white;
       object-fit: cover;
@@ -67,18 +78,21 @@
     }
 
     h1 {
-      margin: 10px 0;
       font-size: 28px;
-      color: white;
+      margin: 10px 0;
     }
 
-    .label {
-      color: white;
+    hr {
+      border: 0;
+      border-top: 1px solid #888;
+      margin: 20px auto;
+      width: 60%;
     }
 
     .socials {
       font-size: 18px;
-      margin-top: 20px;
+      margin-top: 10px;
+      text-align: left;
     }
 
     .socials a {
@@ -97,18 +111,19 @@
     Welcome To Sec's Domain. Press Any Key To Continue<span class="cursor">█</span>
   </div>
 
-  <div id="terminal" style="display: none;">
-    <div class="terminal-box" id="terminal-box"></div>
-  </div>
+  <div id="terminal"></div>
 
   <div class="profile-container" id="profile">
-    <img class="pfp" src="https://files.catbox.moe/xge2b7.jpg" alt="pfp" />
-    <h1>sec</h1>
-    <p>Yungest To Do It</p>
-    <div class="socials">
-      <div><span class="label">📡 Telegram</span> – <a href="https://t.me/prettyboy58" target="_blank">prettyboy58</a></div>
-      <div><span class="label">📄 Doxbin</span> – <a href="https://doxbin.net/user/wpa" target="_blank">wpa</a></div>
-      <div><span class="label">📧 Email</span> – <span>sec@govshield.cc</span></div>
+    <div class="profile-grid">
+      <img class="pfp" src="https://files.catbox.moe/xge2b7.jpg" alt="pfp" />
+      <h1>sec</h1>
+      <p>Yungest To Do It</p>
+      <hr />
+      <div class="socials">
+        <div><strong>📡 Telegram</strong> – <a href="https://t.me/prettyboy58" target="_blank">prettyboy58</a></div>
+        <div><strong>📄 Doxbin</strong> – <a href="https://doxbin.net/user/wpa" target="_blank">wpa</a></div>
+        <div><strong>📧 Email</strong> – sec@govshield.cc</div>
+      </div>
     </div>
     <audio autoplay loop>
       <source src="https://files.catbox.moe/jq8p59.mp3" type="audio/mpeg">
@@ -122,47 +137,47 @@
       "Please set the password for 'sec' > ********",
       "Shall we create a home directory for 'sec'? > Yes",
       "",
-      "Directory Created...",
+      "Directory Created, time for your socials!",
+      "",
+      "Logging in...",
       "Login successful.",
     ];
 
-    let i = 0;
-    let j = 0;
+    let i = 0, j = 0;
     const speed = 25;
+    const terminal = document.getElementById("terminal");
+    const profile = document.getElementById("profile");
 
-    function startTerminalScene() {
+    function startOnInput() {
       document.getElementById("intro").remove();
-      document.getElementById("terminal").style.display = "flex";
+      terminal.style.display = "block";
       typeLine();
+      document.removeEventListener("keydown", startOnInput);
+      document.removeEventListener("click", startOnInput);
     }
 
-    function typeLine() {
-      const terminalBox = document.getElementById("terminal-box");
+    document.addEventListener("keydown", startOnInput);
+    document.addEventListener("click", startOnInput);
 
+    function typeLine() {
       if (i < lines.length) {
         if (j < lines[i].length) {
-          terminalBox.innerHTML += lines[i].charAt(j);
+          terminal.innerHTML += lines[i].charAt(j);
           j++;
           setTimeout(typeLine, speed);
         } else {
-          terminalBox.innerHTML += '\n';
+          terminal.innerHTML += '\n';
           i++;
           j = 0;
           setTimeout(typeLine, 250);
         }
       } else {
-        setTimeout(showProfileScene, 1000);
+        setTimeout(() => {
+          terminal.style.display = "none";
+          profile.style.display = "flex";
+        }, 1000);
       }
     }
-
-    function showProfileScene() {
-      document.getElementById("terminal").remove();
-      const profile = document.getElementById("profile");
-      profile.style.display = "flex";
-    }
-
-    document.addEventListener("keydown", startTerminalScene);
-    document.addEventListener("click", startTerminalScene);
   </script>
 
 </body>
