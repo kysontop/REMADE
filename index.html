@@ -2,17 +2,19 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Sec's Terminal</title>
+  <title>Sec's Domain</title>
   <style>
     body {
       margin: 0;
       padding: 0;
       background: black;
       color: white;
-      font-family: 'Courier New', monospace;
-      font-size: 16px;
+      font-family: 'Arial Black', sans-serif;
+      font-size: 18px;
       white-space: pre-wrap;
-      overflow: hidden;
+      overflow-x: hidden;
+      overflow-y: auto;
+      text-align: center;
     }
 
     #intro {
@@ -20,8 +22,7 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      text-align: center;
-      font-size: 20px;
+      font-size: 22px;
     }
 
     .cursor {
@@ -36,14 +37,58 @@
     }
 
     #terminal {
-      padding: 20px;
+      text-align: left;
+      padding: 40px;
+      font-family: 'Courier New', monospace;
+      color: white;
+      max-width: 600px;
+      margin: 100px auto 0 auto;
     }
+
+    .profile-container {
+      margin: 60px auto;
+      text-align: center;
+    }
+
+    img.pfp {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      border: 3px solid white;
+      object-fit: cover;
+      margin-bottom: 20px;
+    }
+
+    h1 {
+      margin: 10px 0;
+      font-size: 28px;
+      color: white;
+    }
+
+    .label {
+      color: white;
+    }
+
+    .socials {
+      font-size: 18px;
+      margin-top: 20px;
+    }
+
+    .socials a {
+      color: #7d7dff;
+      text-decoration: none;
+    }
+
+    .socials a:hover {
+      color: white;
+    }
+
   </style>
 </head>
 <body>
 
   <div id="intro">
-    Welcome To Sec's Terminal. Press Any Key Or Click Anywhere To Continue<span class="cursor">█</span>
+    Welcome To Sec's Domain Press Any Key  To Continue<span class="cursor">█</span>
   </div>
 
   <script>
@@ -80,9 +125,30 @@
           terminal.innerHTML += '\n';
           i++;
           j = 0;
-          setTimeout(typeLine, 300);
+          setTimeout(typeLine, 250);
         }
+      } else {
+        setTimeout(showProfile, 1000);
       }
+    }
+
+    function showProfile() {
+      const profileHTML = `
+        <div class="profile-container">
+          <img class="pfp" src="https://files.catbox.moe/xge2b7.jpg" alt="pfp" />
+          <h1>sec</h1>
+          <p>Yungest To Do It</p>
+          <div class="socials">
+            <div><span class="label">📡 Telegram</span> – <a href="https://t.me/prettyboy58" target="_blank">prettyboy58</a></div>
+            <div><span class="label">📄 Doxbin</span> – <a href="https://doxbin.net/user/wpa" target="_blank">wpa</a></div>
+            <div><span class="label">📧 Email</span> – <span>sec@govshield.cc</span></div>
+          </div>
+          <audio autoplay loop>
+            <source src="https://files.catbox.moe/jq8p59.mp3" type="audio/mpeg">
+          </audio>
+        </div>
+      `;
+      document.body.insertAdjacentHTML('beforeend', profileHTML);
     }
 
     document.addEventListener("keydown", startTerminal);
